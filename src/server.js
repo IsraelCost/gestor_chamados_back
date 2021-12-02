@@ -1,4 +1,7 @@
+require('dotenv').config();
+
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
@@ -11,6 +14,11 @@ app.use(express.json());
 app.use(routes);
 app.use(middlewareGlobal.notFound);
 app.use(middlewareGlobal.catchAll);
+
+app.use(
+    "/files",
+    express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
+  );
 
 const port = process.env.PORT || 3000;
 

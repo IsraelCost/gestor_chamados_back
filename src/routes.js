@@ -2,8 +2,12 @@ const express = require('express');
 
 const routes = express.Router();
 
+const multer = require('multer');
+const multerConfig = require('./config/multer');
+
 const userController = require('./controllers/UserController');
 const callController = require('./controllers/CallController');
+const imageController = require('./controllers/ImageController');
 
 // ROTAS PARA OS USUÁRIOS //
 routes.get('/users', userController.get);
@@ -22,5 +26,11 @@ routes.delete('/calls/:id', callController.delete);
 
 routes.get('/calls/sent/user/:user_id', callController.getSent);
 routes.get('/calls/received/user/:user_id', callController.getReceived);
+
+// ROTAS PARA AS IMAGENS DOS USUÁRIOS //
+routes.get('/images', imageController.get);
+routes.post('/images', multer(multerConfig).single("file"), imageController.store);
+routes.put('/images/:id', multer(multerConfig).single("file"), imageController.update);
+routes.delete('/images/:id', imageController.delete);
 
 module.exports = routes;

@@ -1,4 +1,5 @@
 const User = require('../models/UserModel');
+const Image = require('../models/ImageModel');
 
 const bcrypt = require('bcryptjs');
 
@@ -20,7 +21,7 @@ module.exports = {
     async getById(req, res, next) {
         try {
             const { id } = req.params;
-            const user = await User.findOne({ where: { id } });
+            const user = await User.findOne({ where: { id }, include: { model: Image, as: 'image' } });
 
             return res.status(200).json(user);
         } catch (error) {
@@ -73,7 +74,7 @@ module.exports = {
                 throw error;
             }
 
-            await User.update({ dept, email, tel, name, password }, { where: { id } })
+            await User.update({ dept, email, tel, name, password }, { where: { id } });
 
             return res.status(200);
         } catch (error) {
