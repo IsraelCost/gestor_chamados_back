@@ -23,7 +23,7 @@ class User extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.Call, { foreignKey: 'user_id', as: 'calls' })
+        this.hasMany(models.Call, { foreignKey: 'caller_id', as: 'calls' });
     }
 }
 

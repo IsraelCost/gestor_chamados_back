@@ -3,7 +3,8 @@ const { Model, DataTypes } = require('sequelize');
 class Call extends Model {
     static init(sequelize) {
         super.init({
-            user_id: DataTypes.INTEGER,
+            caller_id: DataTypes.INTEGER,
+            receiver_id: DataTypes.INTEGER,
             num_equip: DataTypes.INTEGER,
             description: DataTypes.STRING,
         }, {
@@ -13,7 +14,7 @@ class Call extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.User, { foreignKey: 'id', as: 'user' });
+        this.belongsTo(models.User, { foreignKey: 'id', as: 'users' });
     }
 }
 

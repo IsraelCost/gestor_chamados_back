@@ -16,9 +16,11 @@ routes.delete('/users/:id', userController.delete);
 // ROTAS PARA OS CHAMADOS //
 routes.get('/calls', callController.get);
 routes.get('/calls/:id', callController.getById);
-routes.get('/calls/user/:user_id', callController.getByUser);
 routes.post('/calls', callController.store);
 routes.put('/calls/:id', callController.update);
 routes.delete('/calls/:id', callController.delete);
+
+routes.get('/calls/sent/user/:user_id', callController.getSent);
+routes.get('/calls/received/user/:user_id', callController.getReceived);
 
 module.exports = routes;

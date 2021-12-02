@@ -13,7 +13,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      user_id: {
+      receiver_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      caller_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id' },
