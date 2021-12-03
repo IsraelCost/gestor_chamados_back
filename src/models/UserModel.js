@@ -14,9 +14,16 @@ class User extends Model {
             sequelize, 
             tableName: 'users',
             hooks: {
-                async beforeSave(user) {
-                    const hash = await bcrypt.hash(user.password, 10);
+                async beforeCreate(user) {
+                    const salt = await bcrypt.genSaltSync();
+                    const hash = await bcrypt.hashSync(user.password, salt);
                     user.password = hash;
+                },
+
+                async beforeBulkUpdate(user) {
+                    const salt = await bcrypt.genSaltSync();
+                    const hash = await bcrypt.hashSync(user.attributes.password, salt);
+                    user.attributes.password = hash;
                 }
             }
         });

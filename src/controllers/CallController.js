@@ -111,7 +111,7 @@ module.exports = {
 
             await Call.update({ caller_id, receiver_id, description, num_equip }, { where: { id } })
 
-            return res.status(200);
+            return res.status(200).send();
         } catch (error) {
             next(error);
         }
@@ -131,7 +131,7 @@ module.exports = {
 
             await Call.destroy({ where: { id } });
 
-            return res.status(200);
+            return res.status(200).send();
         } catch (error) {
             next(error);
         }

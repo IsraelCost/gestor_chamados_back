@@ -58,7 +58,7 @@ module.exports = {
     async update(req, res, next) {
         try {
             const { id } = req.params;
-            const { dept, email, tel, name, password } = req.body;
+            const { dept, tel, name, password } = req.body;
 
             const userExists = await User.findOne({ where: { id } });
 
@@ -68,15 +68,15 @@ module.exports = {
                 throw error;
             }
 
-            if (!dept || !email || !tel || !name || !password) {
+            if (!dept || !tel || !name || !password) {
                 const error = new Error('Insert all data');
                 error.status = 400;
                 throw error;
             }
 
-            await User.update({ dept, email, tel, name, password }, { where: { id } });
+            await User.update({ dept, tel, name, password }, { where: { id }, individualHooks: true });
 
-            return res.status(200);
+            return res.status(200).send();
         } catch (error) {
             next(error);
         }
@@ -96,7 +96,7 @@ module.exports = {
 
             await User.destroy({ where: { id } });
 
-            return res.status(200);
+            return res.status(200).send();
         } catch (error) {
             next(error);
         }
